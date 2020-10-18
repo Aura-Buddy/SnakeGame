@@ -1,0 +1,62 @@
+#Smoother Snake
+from graphics import *
+def main():
+    
+    win = GraphWin("Smooth Snake")                  #setting up window
+    win.setCoords(0,0, 200, 200)
+    win.setBackground("black")
+
+
+    snake = Rectangle(Point(50,50), Point(55, 55))  #Snake head
+    snake.setFill("green")
+    snake.draw(win)
+
+                                                    #snake movement dictionary
+    move = {'w': snake.move(1,0), 's': snake.move(-1,0), 'a' : snake.move(-1,0), 'd': snake.move(1,0)}
+    
+    message = Text(Point(50,50), "You lose")        #lose message
+    message.setTextColor("white")
+
+    
+    while True:
+    #command below removes accelerating feature just makes it velocity
+    #you can remove Y = 0 for hard mode
+        P_current = snake.getP1()
+
+        if win.checkKey() == 'w':                    #move up
+            move['w']
+            P_current = snake.getP1()
+            Y = P_current.getY()
+            snake.move(0,0.01*Y)
+
+        if win.checkKey() == 's':                    #move down
+            move['s']
+            P_current = snake.getP1()
+            Y = P_current.getY()
+            snake.move(0,-0.01*Y)
+            
+        if win.checkKey() == 'a':                   #move left
+            move['a']
+            P_current = snake.getP1()
+            X = P_current.getX()
+            snake.move(0,-0.01*X)
+            
+        if win.checkKey() == 'd':                    #move right
+            move['d']
+            P_current = snake.getP1()
+            X = P_current.getX()
+            snake.move(0,0.01*X)
+                       
+        if  snake.getP1().getY() > 200 or snake.getP1().getY() < 0:                         #temporary exit plan
+            message.draw(win)
+            break;
+
+        if snake.getP1().getX() > 200 or snake.getP1().getX() < 0:                         #temporary exit plan
+            message.draw(win)
+            break;
+        
+    win.getMouse()
+    win.close()
+main()
+    
+#he recommended a dictionary list
